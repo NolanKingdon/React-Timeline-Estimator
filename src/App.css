@@ -1,0 +1,75 @@
+.App {
+  background-color: #ccc;
+  width: 50%;
+  height: auto;
+  margin-left: 25%;
+  border-radius: 15px;
+  text-align: center;
+  padding-bottom: 50px;
+  box-shadow: 1px 1px 4px black;
+}
+
+.Generator {
+  position: relative;
+  width: 90%;
+  margin: 10% 5% 0% 5%;
+  background-color: white;
+}
+
+/* .inputs {
+  display: inline-block;
+  width: minmax(200px, 40%);
+  height: auto;
+  margin: 5%;
+  padding: 10px;
+  background-color: #ccc;
+  text-align: center;
+  border-radius: 15px;
+} */
+
+.timeline-display {
+  background-color: white;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: minmax(10px, auto);
+  font-family: sans-serif;
+}
+
+.timeline-display h1 {
+  background-color: rgba(97,145,168, 1);
+  margin: 0;
+  color: white;
+  height: 50px;
+  padding-top: 15px;
+}
+
+.timeline-phase {
+  background-color: rgba(187,207,215,1);
+  font-style: oblique;
+  font-size: 1.2rem;
+  height: 40px;
+  padding-top: 15px;
+}
+
+.timeline-date {
+  font-style: italic;
+  padding-top: 15px;
+
+}
+
+.odd {
+  background-color: rgba(228,238,240,1);
+}
+
+.even {
+  background-color: rgba(187,207,215,1);
+}
+
+.timeline-generator {
+  display: inline-block;
+  margin: 0 40% 0 40%;
+}
+
+.input {
+  margin: 5px 0 5px 0;
+}
