@@ -18,6 +18,7 @@ class Generator extends Component {
   }
 
   getDates(){
+    //Dates for if we are not overriding
     let today = new Date(),
         launch = new Date(document.getElementById("launch-date").value),
         end = new Date(document.getElementById("end-date").value),
@@ -25,14 +26,14 @@ class Generator extends Component {
         difference = (launch.getTime() - design.getTime()),
         customize = new Date(design.getTime() + (difference*0.75)),
         preLaunch = new Date((customize.getTime() + (difference*0.25))-86400000);
-
+    //Dates for if we are overriding
     if(this.state.checkStatus === true) {
       today = new Date(document.getElementById("start-date-over").value);
       design = new Date(document.getElementById("sol-design-over").value);
       customize = new Date(document.getElementById("custom-over").value);
       preLaunch = new Date(document.getElementById("readiness-over").value);
     }
-
+    //Considering using a different style for dates her - maybe a bit more descriptive
     this.setState({
       startDate: today.toLocaleDateString("en-US"),
       solDesign: design.toLocaleDateString("en-US"),
@@ -58,6 +59,7 @@ class Generator extends Component {
   render(){
     return(
       <div className = "Generator">
+        {/* Hidden Fields */}
         { this.state.checkStatus === true &&
           <div className = "override-fields">
             <label htmlFor = "start-date-over">Start Date</label>
@@ -70,6 +72,7 @@ class Generator extends Component {
             <input id = "readiness-over" type="date" />
           </div>
         }
+        {/* Normal Fields */}
         <form className = "timeline-generator">
           <label htmlFor = "launch-date">Form Launch Date</label>
           <input id = "launch-date" type="date" />
@@ -78,6 +81,7 @@ class Generator extends Component {
           <button id = "override-button" type = "button" onClick = { this.manualOverride }> { this.state.checkStatus ? "Override is On" : "Override is Off"}</button>
           <button id = "timeline-submit" type = "button" onClick={ this.getDates }>Generate</button>
         </form>
+        {/* Actual timeline */}
         <div className = "timeline-display">
           <h1>Phase</h1>
           <h1>Dates</h1>
