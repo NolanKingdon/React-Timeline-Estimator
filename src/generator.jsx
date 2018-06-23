@@ -61,17 +61,22 @@ class Generator extends Component {
         <form className = "timeline-generator">
           { this.state.checkStatus === true &&
             <div className = "override-fields">
-              <label htmlFor = "start-date-over">Start Date</label>
-              <input id = "start-date-over" type="date" />
-
-              <label htmlFor = "sol-design-over">Solution Design End</label>
-              <input id = "sol-design-over" type="date" />
-
-              <label htmlFor = "custom-over">Customization End</label>
-              <input id = "custom-over" type="date" />
-
-              <label htmlFor = "readiness-over">Readiness End</label>
-              <input id = "readiness-over" type="date" />
+              <div>
+                <label htmlFor = "start-date-over">Start Date</label>
+                <input id = "start-date-over" type="date" />
+              </div>
+              <div>
+                <label htmlFor = "sol-design-over">Solution Design End</label>
+                <input id = "sol-design-over" type="date" />
+              </div>
+              <div>
+                <label htmlFor = "custom-over">Customization End</label>
+                <input id = "custom-over" type="date" />
+              </div>
+              <div>
+                <label htmlFor = "readiness-over">Readiness End</label>
+                <input id = "readiness-over" type="date" />
+              </div>
             </div>
           }
           <div className = "input">
