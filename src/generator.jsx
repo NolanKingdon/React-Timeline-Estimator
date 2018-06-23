@@ -10,20 +10,28 @@ class Generator extends Component {
       customization: "Date",
       preLaunch: "Date",
       launchDate: "Date",
-      endDate: "Date"
+      endDate: "Date",
+      checkStatus: false
     }
     this.getDates = this.getDates.bind(this);
+    this.manualOverride = this.manualOverride.bind(this);
   }
 
-  getDates(event){
+  getDates(){
+    let today = new Date(),
+        launch = new Date(document.getElementById("launch-date").value),
+        end = new Date(document.getElementById("end-date").value),
+        design = new Date(today.getTime() + 604800000),
+        difference = (launch.getTime() - design.getTime()),
+        customize = new Date(design.getTime() + (difference*0.75)),
+        preLaunch = new Date((customize.getTime() + (difference*0.25))-86400000);
 
-    const today = new Date();
-    const launch = new Date(document.getElementById("launch-date").value);
-    const end = new Date(document.getElementById("end-date").value);
-    const design = new Date(today.getTime() + 604800000);
-    const difference = (launch.getTime() - design.getTime());
-    const customize = new Date(design.getTime() + (difference*0.75));
-    const preLaunch = new Date((customize.getTime() + (difference*0.25))-86400000);
+    if(this.state.checkStatus === true) {
+      today = new Date(document.getElementById("start-date-over").value);
+      design = new Date(document.getElementById("sol-design-over").value);
+      customize = new Date(document.getElementById("custom-over").value);
+      preLaunch = new Date(document.getElementById("readiness-over").value);
+    }
 
     this.setState({
       startDate: today.toLocaleDateString("en-US"),
@@ -34,53 +42,83 @@ class Generator extends Component {
       endDate: end.toLocaleDateString("en-US")
     });
   }
+  // Adding in a manual override for dates just in case.
+  manualOverride(event) {
+    if(event.target.checked === true){
+      this.setState({
+        checkStatus: true
+      })
+    } else {
+      this.setState({
+        checkStatus: false
+      })
+    }
+  }
 
   render(){
     return(
       <div className = "Generator">
         <form className = "timeline-generator">
+          { this.state.checkStatus === true &&
+            <div className = "override-fields">
+              <label htmlFor = "start-date-over">Start Date</label>
+              <input id = "start-date-over" type="date" />
+
+              <label htmlFor = "sol-design-over">Solution Design End</label>
+              <input id = "sol-design-over" type="date" />
+
+              <label htmlFor = "custom-over">Customization End</label>
+              <input id = "custom-over" type="date" />
+
+              <label htmlFor = "readiness-over">Readiness End</label>
+              <input id = "readiness-over" type="date" />
+            </div>
+          }
           <div className = "input">
-            <label for = "launch-date">Form Launch Date</label>
+            <label htmlFor = "launch-date">Form Launch Date</label>
             <input id = "launch-date" type="date" />
           </div>
           <div className = "input">
-            <label for = "end-date">Form End Date</label>
+            <label htmlFor = "end-date">Form End Date</label>
             <input id = "end-date" type="date"/>
+          </div>
+          <div className = "override">
+            <input type="checkbox" onClick = { this.manualOverride }/> Override
           </div>
           <button id="timeline-submit" type = "button" onClick={ this.getDates }>Generate</button>
         </form>
         <div className = "timeline-display">
           <h1>Phase</h1>
           <h1>Dates</h1>
-          <div id = "sol-design" class = "timeline-phase odd">
+          <div id = "sol-design" className = "timeline-phase odd">
             Solution Design
           </div>
-          <div id = "sol-design-dates" class = "timeline-date odd">
+          <div id = "sol-design-dates" className = "timeline-date odd">
             { this.state.startDate } - { this.state.solDesign }
           </div>
-          <div id = "customization" class = "timeline-phase even">
+          <div id = "customization" className = "timeline-phase even">
             Form Customization
           </div>
-          <div id = "customization-dates" class = "timeline-date even">
+          <div id = "customization-dates" className = "timeline-date even">
             { this.state.solDesign } - { this.state.customization }
           </div>
-          <div id = "readiness" class = "timeline-phase odd">
+          <div id = "readiness" className = "timeline-phase odd">
             Readiness
           </div>
-          <div id = "readiness-dates" class = "timeline-date odd">
+          <div id = "readiness-dates" className = "timeline-date odd">
             { /*Go one day less than launch date.*/}
             { this.state.customization } - { this.state.preLaunch }
           </div>
-          <div id = "launch" class = "timeline-phase even">
+          <div id = "launch" className = "timeline-phase even">
             Form Launch
           </div>
-          <div id = "launch-dates" class = "timeline-date even">
+          <div id = "launch-dates" className = "timeline-date even">
             { this.state.launchDate }
           </div>
-          <div id = "data-mgmnt" class = "timeline-phase odd">
+          <div id = "data-mgmnt" className = "timeline-phase odd">
             Data Management
           </div>
-          <div id = "data-mgmnt-dates" class = "timeline-date odd">
+          <div id = "data-mgmnt-dates" className = "timeline-date odd">
             { this.state.launchDate } - { this.state.endDate }
           </div>
         </div>
