@@ -44,53 +44,39 @@ class Generator extends Component {
   }
   // Adding in a manual override for dates just in case.
   manualOverride(event) {
-    if(event.target.checked === true){
+    if(this.state.checkStatus === false){
       this.setState({
         checkStatus: true
-      })
+      });
     } else {
       this.setState({
         checkStatus: false
-      })
+      });
     }
   }
 
   render(){
     return(
       <div className = "Generator">
+        { this.state.checkStatus === true &&
+          <div className = "override-fields">
+            <label htmlFor = "start-date-over">Start Date</label>
+            <input id = "start-date-over" type="date" />
+            <label htmlFor = "sol-design-over">Solution Design End</label>
+            <input id = "sol-design-over" type="date" />
+            <label htmlFor = "custom-over">Customization End</label>
+            <input id = "custom-over" type="date" />
+            <label htmlFor = "readiness-over">Readiness End</label>
+            <input id = "readiness-over" type="date" />
+          </div>
+        }
         <form className = "timeline-generator">
-          { this.state.checkStatus === true &&
-            <div className = "override-fields">
-              <div>
-                <label htmlFor = "start-date-over">Start Date</label>
-                <input id = "start-date-over" type="date" />
-              </div>
-              <div>
-                <label htmlFor = "sol-design-over">Solution Design End</label>
-                <input id = "sol-design-over" type="date" />
-              </div>
-              <div>
-                <label htmlFor = "custom-over">Customization End</label>
-                <input id = "custom-over" type="date" />
-              </div>
-              <div>
-                <label htmlFor = "readiness-over">Readiness End</label>
-                <input id = "readiness-over" type="date" />
-              </div>
-            </div>
-          }
-          <div className = "input">
-            <label htmlFor = "launch-date">Form Launch Date</label>
-            <input id = "launch-date" type="date" />
-          </div>
-          <div className = "input">
-            <label htmlFor = "end-date">Form End Date</label>
-            <input id = "end-date" type="date"/>
-          </div>
-          <div className = "override">
-            <input type="checkbox" onClick = { this.manualOverride }/> Override
-          </div>
-          <button id="timeline-submit" type = "button" onClick={ this.getDates }>Generate</button>
+          <label htmlFor = "launch-date">Form Launch Date</label>
+          <input id = "launch-date" type="date" />
+          <label htmlFor = "end-date">Form End Date</label>
+          <input id = "end-date" type="date"/>
+          <button id = "override-button" type = "button" onClick = { this.manualOverride }> { this.state.checkStatus ? "Override is On" : "Override is Off"}</button>
+          <button id = "timeline-submit" type = "button" onClick={ this.getDates }>Generate</button>
         </form>
         <div className = "timeline-display">
           <h1>Phase</h1>
